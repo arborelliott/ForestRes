@@ -69,21 +69,24 @@ This readme file will automatically update with the results produced from the an
 ## RESULTS:
 
 1. Species which failed to join
-Table 1: [Failed Species join](failed_ct.txt)
+
+Table 1: [Failed Species join](output/failed_ct.txt)
 
 2. Overview of the count and percentage of trees within each vulnerability category
-Table 2: [Vulnerability Summary](ov_summary.txt)
 
-![Vulnerability Bar Chart](vuln_bar.png)
+Table 2: [Vulnerability Summary](output/ov_summary.txt)
 
-![Vulnerability Pie Chart](vuln_pie.png)
+![Vulnerability Bar Chart](output/vuln_bar.png)
+
+![Vulnerability Pie Chart](output/vuln_pie.png)
 
 3. count of the most common ( greater than 50 occurances) tree species in your inventory, and their associated vulnerability
 
-Table 3: [Species Overview](latin_sum50.txt)
+Table 3: [Species Overview](output/latin_sum50.txt)
 
 4. Overview of the origin of inventory species
-Table 4: [Species Origins](origin.txt)
+
+Table 4: [Species Origins](output/origin.txt)
 
 
 
