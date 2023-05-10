@@ -1,0 +1,7 @@
+Overall vulnerability      Count    Percentage
+-----------------------  -------  ------------
+high                        1078           2.2
+low                         8321          17.2
+low-moderate                8318          17.2
+moderate                   15795          32.7
+moderate-high                865           1.8

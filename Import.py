@@ -1,23 +1,17 @@
 # -*- coding: utf-8 -*-
 """
-
 @author: Jordan
 
-Other ideas: Map of trees
+Other ideas:
 Compare species distribution to 10/20/30 rule
 match inv species to vulnerable sp key
-
-vulnerability by strata
-
 """
 
 import pandas as pd
 import matplotlib.pyplot as plt
 import geopandas as gpd
 from shapely.geometry import Point
-
-
-#from fpdf import FPDF
+from tabulate import tabulate
 
 #%% Importing Inventory
 
@@ -44,12 +38,8 @@ vuln = pd.read_csv('SpVuln_Index.csv', encoding = 'unicode_escape')
 inv = inv.rename(columns={latin:'Latin Name'})
 inv = inv.rename(columns={strata:'strata'})
 
-
 # Merge inv and vuln based on latin_name column
 vinv = pd.merge(inv, vuln, on='Latin Name', how='left',  indicator=True)
-
-# print records merged
-#print(vinv['_merge'].value_counts())
 
 # Count of rows with 'both' in column _merge
 both_count = (vinv['_merge'] == 'both').sum()
@@ -62,55 +52,59 @@ print("\nTrees not merged:", left_count)
 # show which species did not merge
 left_only_df = vinv[vinv['_merge'] == 'left_only']
 failed_ct = left_only_df['Latin Name'].value_counts()
-print("Species which failed to merge:\n", failed_ct)
-# generate CSV of mismatched species
-failed_ct.to_csv('mismatch.csv')
+failed_ct = pd.DataFrame({'Species':failed_ct.index, 'Count':failed_ct.values})
 
-# drop _merge
+# Generate failed_ct.txt
+with open('output/failed_ct.txt', 'w') as f:
+    f.write(tabulate(failed_ct, headers = 'keys',showindex=False))
+
+# drop _merge column
 vinv = vinv.drop(columns=['_merge'])
+
 
 #%% Summary of Inventory Vulnerability
 
-# Group vinv by Overall vuln, count freqency of Latin Name within each vuln category
+# Summary of inventory vulnerability: Count/Pct
 ov_sum = vinv.groupby('Overall vulnerability')['Latin Name'].count()
-print("\nSummary of Overall vulnerability:\n", ov_sum)
+ov_sum_percent = round(ov_sum/len(vinv)*100, 1)
+ov_summary = pd.DataFrame({'Overall vulnerability':ov_sum.index, 'Count':ov_sum.values, 'Percentage':ov_sum_percent.values})
 
-# Convert counts to percentages
-percentages = ov_sum / len(vinv) * 100
-print("\nPercentage summary of Overall vulnerability:\n", round(percentages,0))
+# Generate Ov_summary.txt
+with open('output/ov_summary.txt', 'w') as f:
+    f.write(tabulate(ov_summary, headers = 'keys',showindex=False))
 
+# Summary of latin name vulnerability/Count
 latin_sum = vinv.groupby(['Latin Name', 'Overall vulnerability']).size().reset_index(name='count')
 latin_sum = latin_sum.sort_values('count',ascending = False)
-print('Most common species\n', latin_sum[latin_sum['count'] > 100])
+latin_sum50 = latin_sum[latin_sum['count'] > 50]
 
-
-
+# Generate latin_sum50.txt
+with open('output/latin_sum50.txt', 'w') as f:
+    f.write(tabulate(latin_sum50, headers = 'keys',showindex=False))
+    
 
 #%% Create bar chart
 fig, ax = plt.subplots()
-percentages.plot(kind='bar', ax=ax)
+ov_sum_percent.plot(kind='bar', ax=ax)
 
 # Set chart title and axis labels
 ax.set_title('Tree Vulnerability Levels')
 ax.set_xlabel('Vulnerability Level')
 ax.set_ylabel('Percentage of Trees')
 
-# Show plot
-plt.show()
-plt.savefig('vuln_bar.png')
+plt.savefig('output/vuln_bar.png')
+
 
 #%% Pie Chart
 
 fig, ax = plt.subplots()
-percentages.plot(kind='pie', ax=ax, autopct='%1.0f%%')
+ov_sum_percent.plot(kind='pie', ax=ax, autopct='%1.0f%%')
 
 # Set chart title
 ax.set_title('Tree Vulnerability Levels')
 ax.set_ylabel('')
 
-# Show plot
-plt.savefig('vuln_pie.png')
-plt.show()
+plt.savefig('output/vuln_pie.png')
 
 
 #%% Species Origins
@@ -123,6 +117,12 @@ print("\nSummary of Species origin:\n", or_sum)
 percentages = or_sum / len(vinv) * 100
 print("\nPercentage summary of species origin:\n", round(percentages,0))
 
+origin = pd.DataFrame({'Species':or_sum.index, 'Count':or_sum.values, 'Percentage':percentages.values})
+
+with open('output/origin.txt', 'w') as f:
+    f.write(tabulate(origin, headers = 'keys',showindex=False))
+
+
 #%% Create Map
 
 geodata = gpd.read_file('cb_2019_us_county_500k.zip')
@@ -131,7 +131,7 @@ geodata = gpd.read_file('cb_2019_us_county_500k.zip')
 geodata = geodata.query("STATEFP == '" + str(state_num) + "'")
 geodata = geodata.query("NAME == '" + str(co_name) + "'")
 
-geodata.to_file('county.gpkg')
+geodata.to_file('output/county.gpkg')
 
 #%% Generate GPKG of tree locations
 
@@ -145,13 +145,4 @@ gdf = gpd.GeoDataFrame(vinv, geometry=points)
 gdf.crs = 'EPSG:4326'
 
 # Save GeoDF as geopackage file
-gdf.to_file('tree_locations.gpkg')
-
-
-
-#%% Export to PDF Report
-
-
-
-
-
+gdf.to_file('output/tree_locations.gpkg')

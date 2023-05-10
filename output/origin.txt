@@ -1,0 +1,6 @@
+Species      Count    Percentage
+---------  -------  ------------
+cultivar      3032       6.27094
+invasive      8145      16.8459
+native       14993      31.0093
+nonnative     8276      17.1169
