@@ -31,6 +31,6 @@ EX: if the latin name column of your inventory is "l_name", then you would fill 
 
 
 
-![alt text](ov_summary.txt)
+![Vulnerability Summary](ov_summary.txt)
 
-![alt text](vuln_bar.png)
+![Vulnerability Bar Chart](vuln_bar.png)
