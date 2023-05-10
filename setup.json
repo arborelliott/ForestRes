@@ -1,0 +1,9 @@
+{ 
+    "CSV":"Syr Inventory.csv",
+	"latin_name":"Sci_Name",
+    "common_name":"Common_Name",
+    "size":"DBH",
+    "strata":"Area",
+	"state_num":"36",
+	"co_name":"Onondaga"
+}
