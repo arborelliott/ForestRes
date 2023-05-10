@@ -1,5 +1,9 @@
 # Urban Forest Climate Change Vulnerability
-This script serves to apply an estimate of Urban Forest Vulnerability to any imported inventory. Vulnerability assessments are often labor intensive and very expensive, meaning that only large communities can afford them. This script takes techniques from large scale assessments and applies them to any imported inventory. Tree inventories are common across small communities and this script will allow those communities to also benefit from a vulnerability assessment. 
+This script serves to apply an estimate of Urban Forest Vulnerability to any imported inventory. Vulnerability assessments are often labor intensive and very expensive, meaning that only large communities can afford them. 
+
+This script takes techniques from large scale assessments and applies them to any imported inventory. Tree inventories are common across small communities and this script will allow those communities to also benefit from a vulnerability assessment. 
+
+**Please note that this script is primarily for East Coast Urban Forests.**
 
 ## Explanation
 This python script analyzes a tree inventory imported by the user and compares it to an established database of tree species climate change vulnerability in order to report a summary of the inventory vulnerability (lewis et al.). 
@@ -64,7 +68,25 @@ Place your inventory CSV in the same folder as the script.
 Run the Import.py script in python
 
 ### 5. Check Readme
-This readme file will automatically update with the results produced from the analysis, seen below. You may need to close the readme file before running the script. See results below: 
+This readme file will automatically update with the results produced from the analysis, seen below. You may need to close the readme file before running the script. See results below:
+
+### 6. Import Gpkg Files
+This script will create a baselayer for the region of your inventory, and a point layer for each tree in the inventory. these GPKG files can be imported into QGIS or your GIS program of choice for further visual representation. 
+
+For QGIS, below is a representation that can be created from this output. 
+> 1. Create a new project
+> 2. Drag in both GPKG files
+> 3. Select a transformation appropriate for your region. 
+> 4. Change county layer to desired color
+> 5. Change tree locations layer style to "categorized" and classify based on the "Overall vulnerability" column calues. 
+> 6. Sort the categories from High to Low. 
+> 7. Disable "all other values" value set. 
+> 7. Select "spectral" color ramp, Making high values be "hot" colors, and low values be cooler colors.
+> 8. Change symbol size to 1 (depending on density of map) 
+> 8. This map can then be exported at a desired zoom to best suit your inventory. 
+
+
+
 
 ## RESULTS:
 
