@@ -1,5 +1,5 @@
 # Urban Forest Climate Change Vulnerability
-This script serves to apply an estimate of Urban Forest Vulnerability to any imported inventory. Vulnerability assessments are often labor intensive and very expensive, meaning that only large communities can afford them. 
+This script serves to apply a simple estimate of Urban Forest Vulnerability to any imported inventory. Vulnerability assessments are often labor intensive and very expensive, meaning that only large communities can afford them. 
 
 This script takes techniques from large scale assessments and applies them to any imported inventory. Tree inventories are common across small communities and this script will allow those communities to also benefit from a vulnerability assessment. 
 
@@ -81,20 +81,22 @@ For QGIS, below is a representation that can be created from this output.
 > 5. Change tree locations layer style to "categorized" and classify based on the "Overall vulnerability" column calues. 
 > 6. Sort the categories from High to Low. 
 > 7. Disable "all other values" value set. 
-> 7. Select "spectral" color ramp, Making high values be "hot" colors, and low values be cooler colors.
-> 8. Change symbol size to 1 (depending on density of map) 
-> 8. This map can then be exported at a desired zoom to best suit your inventory. 
-
+> 8. Select "spectral" color ramp, Making high values be "hot" colors, and low values be cooler colors.
+> 9. Change symbol size to 1 (depending on density of map) 
+> 10. This map can then be exported at a desired zoom to best suit your inventory. 
+> 11. There is an example of this map in the output folder. "example.png
 
 
 
 ## RESULTS:
 
 1. Species which failed to join
+This gives an idea of how many, and which species were not considered in the vulnerability analysis due to a latin name mis-match. 
 
 Table 1: [Failed Species join](output/failed_ct.txt)
 
 2. Overview of the count and percentage of trees within each vulnerability category
+This summary gives an idea of the frequency of vulnerability levels present in your inventory.  
 
 Table 2: [Vulnerability Summary](output/ov_summary.txt)
 
@@ -103,6 +105,7 @@ Table 2: [Vulnerability Summary](output/ov_summary.txt)
 ![Vulnerability Pie Chart](output/vuln_pie.png)
 
 3. count of the most common ( greater than 50 occurances) tree species in your inventory, and their associated vulnerability
+This count shows your most common tree species in the inventory and what their vulnerability is. 
 
 Table 3: [Species Overview](output/latin_sum50.txt)
 
