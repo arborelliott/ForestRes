@@ -31,6 +31,6 @@ EX: if the latin name column of your inventory is "l_name", then you would fill 
 
 
 
-![Vulnerability Summary](ov_summary.txt)
+Table: [Vulnerability Summary](ov_summary.txt)
 
 ![Vulnerability Bar Chart](vuln_bar.png)
