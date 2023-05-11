@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-@author: Jordan
+@author: Jordan Elliott
 
-Other ideas:
-Compare species distribution to 10/20/30 rule
-match inv species to vulnerable sp key
 """
 
 import pandas as pd
